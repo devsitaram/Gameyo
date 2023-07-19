@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">Gameyo</string>
+    <string name="hey">Hey there,</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="login_your_details">Login your details</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="userEmail">Email</string>
+    <string name="userName">Username</string>
+    <string name="userPassword">Password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="checkbox">Remember Me</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="register_your">Register Your</string>
+    <string name="login_your">Login Your</string>
+    <string name="account">Account?</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="contact">Contact</string>
+    <string name="message">Message</string>
+    <string name="setting">Setting</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="aloe_vera">It is used in the pharmaceutical industry for its helps properties and it can often be found in several cosmetic products as well.</string>
+    <string name="rose">Rose is a valuable natural cosmetic ingredient. It contains antibacterial and antioxidants. It\'s toning and relaxing</string>
+    <string name="calendula">Calendula helps reducing redness and helping up the skin and it is considered a medical plat.</string>
+    <string name="erigeron">Erigeron is a large genus of plants in the composite family. It is placed in the tribe Astereae and is closely related to the Old World asters and the true daisies.</string>
+    <string name="rhododendron">Rhododendron, meaning “red tree,” refers to the red flowers and woody growth of some species, but rhododendrons range in habit from evergreen to deciduous and from low-growing ground covers to tall trees.</string>
+    <string name="bluebell">Bluebell flowers are rich in pollen and nectar, and are chiefly pollinated by bumblebees, although they are also visited by various other insects.</string>
+    <string name="logout">Log out?</string>
+    <string name="confirm">Confirm</string>
 </resources>

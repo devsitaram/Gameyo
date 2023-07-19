@@ -89,24 +89,21 @@ fun InputTextField(
 ) {
     Column {
         // if the fields is empty then show error message
-        if (value.isEmpty()) {
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = "Enter the valid $label", color = Color.Red)
-        }
+//        if (value.isEmpty()) {
+//            Spacer(modifier = Modifier.height(4.dp))
+//            Text(text = "Enter the valid $label", color = Color.Red)
+//        }
         // input text fields
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(70.dp)
-                .padding(top = 5.dp),
+                .fillMaxWidth(),
             // text fields bar's text
             label = {
                 Text(label)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-//                focusedLabelColor = Purple80,
                 cursorColor = Purple80
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -129,22 +126,19 @@ fun PasswordTextField(
     Column {
         val passwordVisible = remember { mutableStateOf(false) }
         // if the fields is empty then show error message
-        if (value.isEmpty()) {
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = "Enter the valid $label", color = Color.Red)
-        }
+//        if (value.isEmpty()) {
+//            Spacer(modifier = Modifier.height(4.dp))
+//            Text(text = "Enter the valid $label", color = Color.Red)
+//        }
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 5.dp),
+                .fillMaxWidth(),
             label = {
                 Text(label)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-//                focusedBorderColor = Purple80,
-//                focusedLabelColor = Purple80,
                 cursorColor = Purple80
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -178,7 +172,6 @@ fun CheckboxComponent() {
             .padding(10.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-//        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Checkbox(
             checked = checkedState,
