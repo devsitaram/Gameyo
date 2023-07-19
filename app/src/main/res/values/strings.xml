@@ -29,4 +29,9 @@
     <string name="bluebell">Bluebell flowers are rich in pollen and nectar, and are chiefly pollinated by bumblebees, although they are also visited by various other insects.</string>
     <string name="logout">Log out?</string>
     <string name="confirm">Confirm</string>
+
+    <string name="feature_not_available">No biometric feature available on this device</string>
+    <string name="currently_unavailable">Biometric features are currently unavailable.</string>
+    <string name="device_not_enabled">Device not enabled for biometric authentication.</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

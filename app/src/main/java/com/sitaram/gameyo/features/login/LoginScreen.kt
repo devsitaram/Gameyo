@@ -1,6 +1,7 @@
 package com.sitaram.gameyo.features.login
 
-import android.widget.Toast
+import android.app.Activity
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -54,12 +55,16 @@ fun LoginViewScreen() {
     val navController = rememberNavController()
 
     val context = LocalContext.current
+    val activity = (LocalContext.current as ComponentActivity)
+
+    var isEmptyMessage by remember { mutableStateOf(true) }
+
 //        val loginViewModel = LoginViewModel()
+    val biometric = Biometric()
 
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    var isEmptyMessage by remember { mutableStateOf(true) }
     // check the empty text fields
     val isEmpty by remember {
         derivedStateOf {
@@ -124,7 +129,8 @@ fun LoginViewScreen() {
                     password,
                     painterResource = painterResource(id = R.drawable.ic_lock),
                     onValueChange = { password = it },
-                    label = stringResource(id = R.string.userPassword)
+                    label = stringResource(id = R.string.userPassword),
+                    isEmptyMessage = isEmptyMessage
                 )
 
                 // checkbox
@@ -154,7 +160,7 @@ fun LoginViewScreen() {
                         )
                         FingerprintText(
                             value = "Tap to Login with Fingerprint",
-                            onClickAction = { }
+                            onClickAction = { biometric.checkDeviceHasBiometric(navController, context) }
                         )
                     }
                     Spacer(modifier = Modifier.padding(top = 50.dp))

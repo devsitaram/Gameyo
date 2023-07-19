@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -85,30 +86,27 @@ fun InputTextField(
     painterResource: Painter,
     isEmptyMessage: Boolean
 ) {
-    Column {
-        Spacer(modifier = Modifier.height(4.dp))
-        // input text fields
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = Modifier
-                .fillMaxWidth(),
-            // text fields bar's text
-            label = {
-                Text(label)
-            },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                cursorColor = Purple80
-            ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            leadingIcon = {
-                Icon(painter = painterResource, contentDescription = "")
-            },
-        )
-        // if the fields is empty then show error message
-        if (!isEmptyMessage) {
-            Text(text = "Enter the valid $label", color = Color.Red)
-        }
+    // input text fields
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = Modifier
+            .fillMaxWidth(),
+        // text fields bar's text
+        label = {
+            Text(label)
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            cursorColor = Purple80
+        ),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        leadingIcon = {
+            Icon(painter = painterResource, contentDescription = "")
+        },
+    )
+    // if the fields is empty then show error message
+    if (!isEmptyMessage) {
+        Text(text = "Enter the valid $label", style = TextStyle(fontSize = 12.sp), color = Color.Red)
     }
 }
 
@@ -119,45 +117,44 @@ fun PasswordTextField(
     value: String,
     painterResource: Painter,
     onValueChange: (String) -> Unit = {},
-    label: String
+    label: String,
+    isEmptyMessage: Boolean
 ) {
-    Column {
-        val passwordVisible = remember { mutableStateOf(false) }
-        // if the fields is empty then show error message
-//        if (value.isEmpty()) {
-//            Spacer(modifier = Modifier.height(4.dp))
-//            Text(text = "Enter the valid $label", color = Color.Red)
-//        }
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = Modifier
-                .fillMaxWidth(),
-            label = {
-                Text(label)
-            },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                cursorColor = Purple80
-            ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            // lest side icon
-            leadingIcon = {
-                Icon(painter = painterResource, contentDescription = "")
-            },
-            // right side icon
-            trailingIcon = {
-                val iconImage = if (passwordVisible.value) {
+    val passwordVisible = remember { mutableStateOf(false) }
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = Modifier
+            .fillMaxWidth(),
+        label = {
+            Text(label)
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            cursorColor = Purple80
+        ),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        // lest side icon
+        leadingIcon = {
+            Icon(painter = painterResource, contentDescription = "")
+        },
+        // right side icon
+        trailingIcon = {
+            val iconImage = if (passwordVisible.value) {
 //                    Icons.Filled.Visibility
-                    painterResource(R.drawable.ic_password_invisible)
-                } else {
-                    painterResource(R.drawable.ic_password_visible)
-                }
-                IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                    Icon(painter = iconImage, contentDescription = null)
-                }
-            },
-            visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
-        )
+                painterResource(R.drawable.ic_password_invisible)
+            } else {
+                painterResource(R.drawable.ic_password_visible)
+            }
+            IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
+                Icon(painter = iconImage, contentDescription = null)
+            }
+        },
+        visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+    )
+    // if the fields is empty then show error message
+    if (!isEmptyMessage) {
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(text = "Enter the valid $label", style = TextStyle(fontSize = 12.sp), color = Color.Red)
     }
 }
 
@@ -179,7 +176,8 @@ fun CheckboxComponent() {
                 uncheckedColor = Color.Gray
             )
         )
-        Text(text = if (checkedState) "Remember" else "Remember Me"
+        Text(
+            text = if (checkedState) "Remember" else "Remember Me"
         )
     }
 }
