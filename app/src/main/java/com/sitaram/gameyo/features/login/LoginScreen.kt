@@ -1,21 +1,23 @@
 package com.sitaram.gameyo.features.login
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Surface
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,122 +52,155 @@ import com.sitaram.gameyo.features.util.PasswordTextField
 fun LoginViewScreen() {
 
     val navController = rememberNavController()
-    Surface(Modifier.fillMaxSize()) {
-        val context = LocalContext.current
+
+    val context = LocalContext.current
 //        val loginViewModel = LoginViewModel()
 
-        var name by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
-        // Login button click handler
-        val onLoginClick: () -> Unit = {
-//            val isValidLogin = loginViewModel.loginDetails(name, password, context)
-            val isValidLogin = false
-            if (isValidLogin) {
-                // Navigate to the home screen
-                navController.navigate(User.Main.route) {
-                    // callback old screen
-                    popUpTo(User.Login.route) {
-                        inclusive = true // close the previous screen
-                    }
-                }
-                Toast.makeText(context, "Login Successful.", Toast.LENGTH_SHORT).show()
-            }
+    var isEmptyMessage by remember { mutableStateOf(true) }
+    // check the empty text fields
+    val isEmpty by remember {
+        derivedStateOf {
+            name.isEmpty() && password.isEmpty()
         }
+    }
 
-        // sign screen page
-        Surface(modifier = Modifier
-            .fillMaxSize()) {
-            // child layout file
+    // Login button click handler
+    val onLoginClick: () -> Unit = {
+        if(isEmpty){
+            isEmptyMessage = false // show error message
+        } else {
+            isEmptyMessage = true // hide error message
+//            val isValidLogin = loginViewModel.loginDetails(name, password, context)
+//            if (isValidLogin) {
+//                // Navigate to the home screen
+//                navController.navigate(User.Main.route) {
+//                    // callback old screen
+//                    popUpTo(User.Login.route) {
+//                        inclusive = true // close the previous screen
+//                    }
+//                }
+//                Toast.makeText(context, "Login Successful.", Toast.LENGTH_SHORT).show()
+//            }
+        }
+    }
+    Surface(Modifier.fillMaxSize()) {
+        // child layout file
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(30.dp),
+        ) {
+            NormalTextComponent(
+                text = stringResource(id = R.string.hey),
+                color = colorResource(id = R.color.softBlack)
+            ) // text
+
+            HeadingTextComponent(
+                value = stringResource(id = R.string.login_your_details),
+                color = colorResource(id = R.color.black)
+            )
+
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(30.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp)
+                    .background(Color.White)
             ) {
-                NormalTextComponent(
-                    text = stringResource(id = R.string.hey),
-                    color = colorResource(id = R.color.softBlack)
-                ) // text
-
-                HeadingTextComponent(
-                    value = stringResource(id = R.string.login_your_details),
-                    color = colorResource(id = R.color.black)
+                // username
+                InputTextField(
+                    name,
+                    onValueChange = { name = it },
+                    label = stringResource(id = R.string.userName),
+                    painterResource = painterResource(R.drawable.ic_person),
+                    isEmptyMessage = isEmptyMessage
                 )
 
-//                Spacer(modifier = Modifier.height(50.dp)) // marginTop/space
+                Spacer(modifier = Modifier.padding(top = 10.dp))
+                // password
+                PasswordTextField(
+                    password,
+                    painterResource = painterResource(id = R.drawable.ic_lock),
+                    onValueChange = { password = it },
+                    label = stringResource(id = R.string.userPassword)
+                )
+
+                // checkbox
+                CheckboxComponent()
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                // login button
+                NormalButton(
+                    value = stringResource(id = R.string.login),
+                    onClickAction = onLoginClick
+                )
 
                 Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(top = 50.dp)
-                        .background(Color.White)) {
-                    // username
-                    InputTextField(
-                        name,
-                        onValueChange = { name = it },
-                        label = stringResource(id = R.string.userName),
-                        painterResource(R.drawable.ic_person),
-                    )
-
-                    Spacer(modifier = Modifier.padding(top = 10.dp))
-                    // password
-                    PasswordTextField(
-                        password,
-                        painterResource = painterResource(id = R.drawable.ic_lock),
-                        onValueChange = { password = it },
-                        label = stringResource(id = R.string.userPassword)
-                    )
-
-                    // checkbox
-                    CheckboxComponent()
-
-                    Spacer(modifier = Modifier.height(30.dp))
-
-                    // login button
-                    NormalButton(
-                        value = stringResource(id = R.string.login),
-                        onClickAction = onLoginClick
-                    )
-
-                    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                        ForgotPasswordText(
-                            value = "Forgot",
-                            onClickAction = { navController.navigate(User.ForgotPassword.route) }
-                        )
-                        ForgotPasswordText(
-                            value = "Forgot password?",
-                            onClickAction = { navController.navigate(User.ForgotPassword.route) }
-                        )
-                    }
-                        ForgotPasswordText(
-                            value = "Forgot password?",
-                            onClickAction = { navController.navigate(User.ForgotPassword.route) }
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(50.dp))
-                Divider(modifier = Modifier.fillMaxWidth()) // divider
-                // register text
-                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp),
-                    horizontalArrangement = Arrangement.Center
+                        .padding(10.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    NormalTextComponent(
-                        text = stringResource(id = R.string.register_your),
-                        color = colorResource(id = R.color.softBlack)
-                    )
-                    RegisterTextComponent(
-                        value = stringResource(id = R.string.account),
-                        navController = navController
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_fingerprint),
+                            contentDescription = "fingerprint",
+                            modifier = Modifier
+                                .height(30.dp)
+                                .width(30.dp)
+                        )
+                        FingerprintText(
+                            value = "Tap to Login with Fingerprint",
+                            onClickAction = { }
+                        )
+                    }
+                    Spacer(modifier = Modifier.padding(top = 50.dp))
+                    ForgotPasswordText(
+                        value = "Forgot password?",
+                        onClickAction = { navController.navigate(User.ForgotPassword.route) }
                     )
                 }
+            }
+
+            Spacer(modifier = Modifier.height(50.dp))
+            Divider(modifier = Modifier.fillMaxWidth()) // divider
+            // register text
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                NormalTextComponent(
+                    text = stringResource(id = R.string.register_your),
+                    color = colorResource(id = R.color.softBlack)
+                )
+                RegisterTextComponent(
+                    value = stringResource(id = R.string.account),
+                    navController = navController
+                )
             }
         }
     }
+}
+
+@Composable
+fun FingerprintText(value: String, onClickAction: (Int) -> Unit) {
+    ClickableText(
+        text = AnnotatedString(value),
+        modifier = Modifier
+            .wrapContentHeight()
+            .padding(start = 5.dp),
+        style = TextStyle(
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        ),
+        onClick = onClickAction,
+    )
 }
 
 @Composable
@@ -193,7 +228,7 @@ fun RegisterTextComponent(value: String, navController: NavController) {
             .wrapContentHeight()
             .padding(horizontal = 5.dp),
         style = TextStyle(
-            fontSize = 16.sp,
+            fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold,
             fontStyle = FontStyle.Normal
         ),

@@ -1,6 +1,5 @@
 package com.sitaram.gameyo.features.util
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -86,13 +83,10 @@ fun InputTextField(
     onValueChange: (String) -> Unit = {},
     label: String,
     painterResource: Painter,
+    isEmptyMessage: Boolean
 ) {
     Column {
-        // if the fields is empty then show error message
-//        if (value.isEmpty()) {
-//            Spacer(modifier = Modifier.height(4.dp))
-//            Text(text = "Enter the valid $label", color = Color.Red)
-//        }
+        Spacer(modifier = Modifier.height(4.dp))
         // input text fields
         OutlinedTextField(
             value = value,
@@ -111,6 +105,10 @@ fun InputTextField(
                 Icon(painter = painterResource, contentDescription = "")
             },
         )
+        // if the fields is empty then show error message
+        if (!isEmptyMessage) {
+            Text(text = "Enter the valid $label", color = Color.Red)
+        }
     }
 }
 
@@ -181,7 +179,7 @@ fun CheckboxComponent() {
                 uncheckedColor = Color.Gray
             )
         )
-        Text(text = if (checkedState) "Checked" else "Unchecked"
+        Text(text = if (checkedState) "Remember" else "Remember Me"
         )
     }
 }
@@ -199,7 +197,8 @@ fun NormalButton(value: String, onClickAction: () -> Unit) {
             fontSize = 15.sp,
             text = value,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier.padding(5.dp),
+            color = Color.White
         )
     }
 }
