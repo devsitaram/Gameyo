@@ -26,6 +26,7 @@ import com.sitaram.composeapp.features.game.GameScreen
 import com.sitaram.gameyo.features.forgotpassword.ForgotPasswordViewScreen
 import com.sitaram.gameyo.features.home.HomeViewScreen
 import com.sitaram.gameyo.features.login.LoginViewScreen
+import com.sitaram.gameyo.features.message.MessageViewScreen
 import com.sitaram.gameyo.features.profile.ProfileViewScreen
 import com.sitaram.gameyo.features.register.SignUpViewScreen
 import com.sitaram.gameyo.features.setting.SettingViewScreen
@@ -114,7 +115,7 @@ fun ViewOfMainPage() {
         NavHost(navController, startDestination = ScreenItem.Home.route, Modifier.padding(innerPadding)) {
             composable(ScreenItem.Home.route) { HomeViewScreen() }
             composable(ScreenItem.Profile.route) { ProfileViewScreen() }
-            composable(ScreenItem.Message.route) { MessageScreen() }
+            composable(ScreenItem.Message.route) { MessageViewScreen() }
             composable(ScreenItem.Game.route) { GameScreen() }
             composable(ScreenItem.Setting.route) { SettingViewScreen() }
         }
