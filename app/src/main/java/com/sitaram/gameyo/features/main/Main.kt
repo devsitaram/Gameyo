@@ -28,6 +28,7 @@ import com.sitaram.gameyo.features.home.HomeViewScreen
 import com.sitaram.gameyo.features.login.LoginViewScreen
 import com.sitaram.gameyo.features.profile.ProfileViewScreen
 import com.sitaram.gameyo.features.register.SignUpViewScreen
+import com.sitaram.gameyo.features.setting.SettingViewScreen
 
 @Composable
 fun GameyoAppNavHost(navController: NavHostController) {
@@ -115,7 +116,7 @@ fun ViewOfMainPage() {
             composable(ScreenItem.Profile.route) { ProfileViewScreen() }
             composable(ScreenItem.Message.route) { MessageScreen() }
             composable(ScreenItem.Game.route) { GameScreen() }
-            composable(ScreenItem.Setting.route) { SettingsScreen() }
+            composable(ScreenItem.Setting.route) { SettingViewScreen() }
         }
     }
 }
