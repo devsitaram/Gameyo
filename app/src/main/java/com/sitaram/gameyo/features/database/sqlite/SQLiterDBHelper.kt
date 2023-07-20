@@ -103,7 +103,7 @@ class SQLiterDBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NA
     fun updatePassword(newPassword: String, context: Context): Boolean? {
         return try {
             val sqLiteDatabaseWrite = this.writableDatabase
-            return if (oldPassword == newPassword) {
+            return if (oldPassword == newPassword)  {
                 Toast.makeText(context, "Enter the new password!", Toast.LENGTH_SHORT).show()
                 false
             } else {
