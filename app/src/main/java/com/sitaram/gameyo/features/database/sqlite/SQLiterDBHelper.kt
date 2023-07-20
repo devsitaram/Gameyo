@@ -5,10 +5,10 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
+import android.widget.Toast
 import java.sql.SQLException
 
-class SQLiterDBHelper : SQLiteOpenHelper {
+class SQLiterDBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VIRION) {
 
     // create the companion object
     companion object {
@@ -20,16 +20,14 @@ class SQLiterDBHelper : SQLiteOpenHelper {
         const val KEY_EMAIL = "email"
         const val KEY_NAME = "username"
         const val KEY_PASSWORD = "password"
+        private var userId: String? = null
+        private var oldPassword: String? = null
     }
-
-    // create the constructor
-    constructor(context: Context?) : super(context, DATABASE_NAME, null, DATABASE_VIRION)
 
     // create the database
     override fun onCreate(db: SQLiteDatabase) {
         // create the database table
-        db.execSQL(
-            " CREATE TABLE " + TABLE_NAME +
+        db.execSQL(" CREATE TABLE " + TABLE_NAME +
                     "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_EMAIL + " TEXT UNIQUE, " + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT " + ")"
         )
     }
@@ -90,6 +88,8 @@ class SQLiterDBHelper : SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             // check the user login details are valid or not
             if (email == cursor.getString(1)) {
+                userId = cursor.getString(0)
+                oldPassword = cursor.getString(3)
                 cursor.close()
                 return true
             }
@@ -100,32 +100,21 @@ class SQLiterDBHelper : SQLiteOpenHelper {
 
     // update password
     @SuppressLint("Recycle")
-    fun updatePassword(email: String, newPassword: String): Boolean {
-        // create the object of sqLiteDatabase and call the getReadableDatabase methods
-        val sqLiteDatabaseRead = this.readableDatabase
-        val sqLiteDatabaseWrite = this.writableDatabase
-
-        val cursor = sqLiteDatabaseRead.rawQuery("SELECT * FROM $TABLE_NAME", null)
-
-        // use the while loop
-        while (cursor.moveToNext()) {
-            // check the user login details are valid or not
-            if (email == cursor.getString(1)) {
-                val userId = cursor.getString(0)
-
-                Log.e("User ID: ", userId)
-
+    fun updatePassword(newPassword: String, context: Context): Boolean? {
+        return try {
+            val sqLiteDatabaseWrite = this.writableDatabase
+            return if (oldPassword == newPassword) {
+                Toast.makeText(context, "Enter the new password!", Toast.LENGTH_SHORT).show()
+                false
+            } else {
                 val updateQuery = "UPDATE $TABLE_NAME SET $KEY_PASSWORD = ? WHERE $KEY_ID = ?"
                 val args = arrayOf(newPassword, userId)
-
                 sqLiteDatabaseWrite.execSQL(updateQuery, args)
-
-                cursor.close()
                 return true
             }
+        } catch (ex: Exception) {
+            Toast.makeText(context, "Enter the valid strong password!", Toast.LENGTH_SHORT).show()
+            false
         }
-
-        cursor.close()
-        return false
     }
 }

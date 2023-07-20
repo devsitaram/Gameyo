@@ -65,21 +65,21 @@ fun SignUpViewScreen(navController: NavHostController) {
     // check the empty text fields
     val isEmpty by remember {
         derivedStateOf {
-            email.isEmpty() && name.isEmpty() && password.isEmpty()
+            email.isNotEmpty() && name.isNotEmpty() && password.isNotEmpty()
         }
     }
 
     // on click function
     val onClickAction: () -> Unit = {
         if (isEmpty) {
-            isEmptyMessage = false // show error message
-        } else {
-            isEmptyMessage = true // hide error message
+            isEmptyMessage = true // show error message
             val signUpViewModel = SignUpViewModel()
             val isValidRegister = signUpViewModel.registerDetail(email, name, password, context)
             if (isValidRegister) {
                 navController.navigate(User.Login.route)
             }
+        } else {
+            isEmptyMessage = false // hide error message
         }
     }
 
@@ -169,7 +169,7 @@ fun SignUpViewScreen(navController: NavHostController) {
 }
 
 @Composable
-fun RegisterButton(value: String, isEnabled: Boolean = false, onClickAction: () -> Unit) {
+fun RegisterButton(value: String, isEnabled: Boolean, onClickAction: () -> Unit) {
     Button(
         modifier = Modifier
             .fillMaxWidth()

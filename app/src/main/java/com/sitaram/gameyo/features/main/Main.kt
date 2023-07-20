@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.sitaram.gameyo.features.forgotpassword.ForgotPasswordViewScreen
 import com.sitaram.gameyo.features.login.LoginViewScreen
 import com.sitaram.gameyo.features.register.SignUpViewScreen
 
@@ -20,7 +21,7 @@ fun GameyoAppNavHost(navController: NavHostController) {
         }
         // password forgot screen
         composable(User.ForgotPassword.route){
-
+            ForgotPasswordViewScreen(navController)
         }
         // main screen
         composable(User.Main.route){
