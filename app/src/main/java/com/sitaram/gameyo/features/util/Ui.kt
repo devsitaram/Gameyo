@@ -121,6 +121,7 @@ fun PasswordTextField(
     isEmptyMessage: Boolean
 ) {
     val passwordVisible = remember { mutableStateOf(false) }
+
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,

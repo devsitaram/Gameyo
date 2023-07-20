@@ -1,6 +1,7 @@
 package com.sitaram.gameyo.features.login
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.main.User
@@ -48,23 +50,19 @@ import com.sitaram.gameyo.features.util.NormalButton
 import com.sitaram.gameyo.features.util.NormalTextComponent
 import com.sitaram.gameyo.features.util.PasswordTextField
 
-@Preview
 @Composable
-fun LoginViewScreen() {
-
-    val navController = rememberNavController()
+fun LoginViewScreen(navController: NavHostController) {
 
     val context = LocalContext.current
     val activity = (LocalContext.current as ComponentActivity)
 
-    var isEmptyMessage by remember { mutableStateOf(true) }
 
-//        val loginViewModel = LoginViewModel()
     val biometric = Biometric()
 
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+    var isEmptyMessage by remember { mutableStateOf(true) }
     // check the empty text fields
     val isEmpty by remember {
         derivedStateOf {
@@ -78,17 +76,17 @@ fun LoginViewScreen() {
             isEmptyMessage = false // show error message
         } else {
             isEmptyMessage = true // hide error message
-//            val isValidLogin = loginViewModel.loginDetails(name, password, context)
-//            if (isValidLogin) {
-//                // Navigate to the home screen
-//                navController.navigate(User.Main.route) {
-//                    // callback old screen
-//                    popUpTo(User.Login.route) {
-//                        inclusive = true // close the previous screen
-//                    }
-//                }
-//                Toast.makeText(context, "Login Successful.", Toast.LENGTH_SHORT).show()
-//            }
+            val loginViewModel = LoginViewModel()
+            val isValidLogin = loginViewModel.loginDetails(name, password, context)
+            if (isValidLogin) {
+                // Navigate to the home screen
+                navController.navigate(User.Main.route) {
+                    // callback old screen
+                    popUpTo(User.Login.route) {
+                        inclusive = true // close the previous screen
+                    }
+                }
+            }
         }
     }
     Surface(Modifier.fillMaxSize()) {
