@@ -24,7 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sitaram.composeapp.features.game.GameScreen
 import com.sitaram.gameyo.features.forgotpassword.ForgotPasswordViewScreen
+import com.sitaram.gameyo.features.home.HomeViewScreen
 import com.sitaram.gameyo.features.login.LoginViewScreen
+import com.sitaram.gameyo.features.profile.ProfileViewScreen
 import com.sitaram.gameyo.features.register.SignUpViewScreen
 
 @Composable
@@ -109,8 +111,8 @@ fun ViewOfMainPage() {
         }
     ) {innerPadding ->
         NavHost(navController, startDestination = ScreenItem.Home.route, Modifier.padding(innerPadding)) {
-            composable(ScreenItem.Home.route) { HomeScreen() }
-            composable(ScreenItem.Profile.route) { ProfileScreen() }
+            composable(ScreenItem.Home.route) { HomeViewScreen() }
+            composable(ScreenItem.Profile.route) { ProfileViewScreen() }
             composable(ScreenItem.Message.route) { MessageScreen() }
             composable(ScreenItem.Game.route) { GameScreen() }
             composable(ScreenItem.Setting.route) { SettingsScreen() }

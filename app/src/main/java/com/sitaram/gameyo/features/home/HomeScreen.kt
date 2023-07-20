@@ -28,9 +28,8 @@ import androidx.compose.ui.unit.sp
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.home.pojo.FlowerPojo
 
-@Preview
 @Composable
-fun HomeScreen() {
+fun HomeViewScreen() {
 
     val flowerList = mutableListOf<FlowerPojo>()
     flowerList.add(FlowerPojo("Aloe Vera", R.string.aloe_vera, R.mipmap.img_aloevera))
