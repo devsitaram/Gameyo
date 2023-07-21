@@ -7,8 +7,6 @@ import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.PromptInfo
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.app.ComponentActivity
 import androidx.navigation.NavController
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.main.User

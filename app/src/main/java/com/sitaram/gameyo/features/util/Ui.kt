@@ -65,8 +65,7 @@ fun HeadingTextComponent(value: String, color: Color) {
         text = value,
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(top = 10.dp),
+            .wrapContentHeight(),
         style = TextStyle(
             fontSize = 24.sp,
             fontWeight = FontWeight.SemiBold,
@@ -165,7 +164,7 @@ fun CheckboxComponent() {
     var checkedState by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier
-            .padding(10.dp)
+            .padding(5.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {

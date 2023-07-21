@@ -1,8 +1,5 @@
 package com.sitaram.gameyo.features.login
 
-import android.app.Activity
-import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,12 +32,10 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.main.User
 import com.sitaram.gameyo.features.util.CheckboxComponent
@@ -52,12 +47,7 @@ import com.sitaram.gameyo.features.util.PasswordTextField
 
 @Composable
 fun LoginViewScreen(navController: NavHostController) {
-
     val context = LocalContext.current
-    val activity = (LocalContext.current as ComponentActivity)
-
-
-    val biometric = Biometric()
 
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -94,12 +84,11 @@ fun LoginViewScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(30.dp),
+                .padding(15.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            NormalTextComponent(
-                text = stringResource(id = R.string.hey),
-                color = colorResource(id = R.color.softBlack)
-            ) // text
+            Image(painter = painterResource(id = R.drawable.img_login), contentDescription = null,
+            modifier = Modifier.width(200.dp).height(200.dp))
 
             HeadingTextComponent(
                 value = stringResource(id = R.string.login_your_details),
@@ -109,7 +98,7 @@ fun LoginViewScreen(navController: NavHostController) {
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(top = 50.dp)
+                    .padding(20.dp)
                     .background(Color.White)
             ) {
                 // username
@@ -121,7 +110,7 @@ fun LoginViewScreen(navController: NavHostController) {
                     isEmptyMessage = isEmptyMessage
                 )
 
-                Spacer(modifier = Modifier.padding(top = 10.dp))
+                Spacer(modifier = Modifier.padding(top = 5.dp))
                 // password
                 PasswordTextField(
                     password,
@@ -134,7 +123,7 @@ fun LoginViewScreen(navController: NavHostController) {
                 // checkbox
                 CheckboxComponent()
 
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.padding(top = 20.dp))
 
                 // login button
                 NormalButton(
@@ -142,11 +131,7 @@ fun LoginViewScreen(navController: NavHostController) {
                     onClickAction = onLoginClick
                 )
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                Column(modifier = Modifier.fillMaxWidth().padding(top = 5.dp), horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
@@ -158,10 +143,10 @@ fun LoginViewScreen(navController: NavHostController) {
                         )
                         FingerprintText(
                             value = "Tap to Login with Fingerprint",
-                            onClickAction = { biometric.checkDeviceHasBiometric(navController, context) }
+                            onClickAction = {  }
                         )
                     }
-                    Spacer(modifier = Modifier.padding(top = 50.dp))
+                    Spacer(modifier = Modifier.padding(top = 25.dp))
                     ForgotPasswordText(
                         value = "Forgot password?",
                         onClickAction = { navController.navigate(User.ForgotPassword.route) }
@@ -169,13 +154,10 @@ fun LoginViewScreen(navController: NavHostController) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(50.dp))
-            Divider(modifier = Modifier.fillMaxWidth()) // divider
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+            Divider(modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp)) // divider
             // register text
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp),
+            Row(modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 NormalTextComponent(

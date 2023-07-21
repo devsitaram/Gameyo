@@ -34,6 +34,7 @@ import com.sitaram.gameyo.features.setting.SettingViewScreen
 @Composable
 fun GameyoAppNavHost(navController: NavHostController) {
     NavHost(navController = navController, startDestination = User.Login.route){
+
         // login screen
         composable(User.Login.route){
             LoginViewScreen(navController)
