@@ -1,15 +1,12 @@
 package com.sitaram.gameyo.features.util
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -153,7 +150,7 @@ fun PasswordTextField(
     )
     // if the fields is empty then show error message
     if (!isEmptyMessage) {
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.padding(top = 4.dp))
         Text(text = "Enter the valid $label", style = TextStyle(fontSize = 12.sp), color = Color.Red)
     }
 }
@@ -188,8 +185,7 @@ fun NormalButton(value: String, onClickAction: () -> Unit) {
     Button(
         onClick = onClickAction,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+            .fillMaxWidth().padding(5.dp),
     ) {
         Text(
             fontSize = 15.sp,

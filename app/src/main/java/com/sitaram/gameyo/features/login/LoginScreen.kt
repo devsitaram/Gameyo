@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
@@ -32,10 +34,12 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.main.User
 import com.sitaram.gameyo.features.util.CheckboxComponent
@@ -45,8 +49,10 @@ import com.sitaram.gameyo.features.util.NormalButton
 import com.sitaram.gameyo.features.util.NormalTextComponent
 import com.sitaram.gameyo.features.util.PasswordTextField
 
+//@Preview // navController: NavHostController
 @Composable
 fun LoginViewScreen(navController: NavHostController) {
+//    val navController = rememberNavController()
     val context = LocalContext.current
 
     var name by remember { mutableStateOf("") }
@@ -84,17 +90,23 @@ fun LoginViewScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(15.dp),
+                .padding(15.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(painter = painterResource(id = R.drawable.img_login), contentDescription = null,
-            modifier = Modifier.width(200.dp).height(200.dp))
+            Image(
+                painter = painterResource(id = R.drawable.img_login), contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
+            )
 
             HeadingTextComponent(
                 value = stringResource(id = R.string.login_your_details),
                 color = colorResource(id = R.color.black)
             )
 
+            Spacer(modifier = Modifier.padding(top = 30.dp))
             Column(
                 Modifier
                     .fillMaxWidth()
@@ -131,7 +143,10 @@ fun LoginViewScreen(navController: NavHostController) {
                     onClickAction = onLoginClick
                 )
 
-                Column(modifier = Modifier.fillMaxWidth().padding(top = 5.dp), horizontalAlignment = Alignment.CenterHorizontally
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 5.dp), horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
@@ -143,7 +158,7 @@ fun LoginViewScreen(navController: NavHostController) {
                         )
                         FingerprintText(
                             value = "Tap to Login with Fingerprint",
-                            onClickAction = {  }
+                            onClickAction = { }
                         )
                     }
                     Spacer(modifier = Modifier.padding(top = 25.dp))
@@ -154,20 +169,29 @@ fun LoginViewScreen(navController: NavHostController) {
                 }
             }
 
-            Spacer(modifier = Modifier.padding(top = 20.dp))
-            Divider(modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp)) // divider
-            // register text
-            Row(modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                NormalTextComponent(
-                    text = stringResource(id = R.string.register_your),
-                    color = colorResource(id = R.color.softBlack)
-                )
-                RegisterTextComponent(
-                    value = stringResource(id = R.string.account),
-                    navController = navController
-                )
+            Column {
+                Spacer(modifier = Modifier.padding(top = 20.dp))
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp)
+                ) // divider
+                // register text
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    NormalTextComponent(
+                        text = stringResource(id = R.string.register_your),
+                        color = colorResource(id = R.color.softBlack)
+                    )
+                    RegisterTextComponent(
+                        value = stringResource(id = R.string.account),
+                        navController = navController
+                    )
+                }
             }
         }
     }

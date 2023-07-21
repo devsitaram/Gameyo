@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -35,18 +34,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.main.User
 import com.sitaram.gameyo.features.util.InputTextField
 import com.sitaram.gameyo.features.util.NormalButton
 import com.sitaram.gameyo.features.util.PasswordTextField
 
-// @Preview // navController: NavHostController
+//@Preview // navController: NavHostController
 @Composable
 fun ForgotPasswordViewScreen(navController: NavHostController) {
 
@@ -109,10 +106,16 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
             }
 
             Column(
-                modifier = Modifier.padding(30.dp),
+                modifier = Modifier.padding(25.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_login),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
                 Text(
                     text = "Forgot your password",
                     style = TextStyle(
@@ -123,25 +126,19 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
                 )
 
                 Spacer(modifier = Modifier.padding(top = 10.dp))
-                Text(
-                    text = "Don't worry enter your registered email id to received password reset option!",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center
-                    ),
-                    color = Color.DarkGray
-                )
-
-                Spacer(modifier = Modifier.padding(top = 10.dp))
-                Image(painter = painterResource(id = R.drawable.img_login), contentDescription = null, modifier = Modifier.fillMaxWidth())
+                TextView(text = "Don't worry enter your registered email id to received password reset option!")
             }
 
             // email check
             Box(modifier = Modifier.wrapContentHeight()) {
                 if (visible) {
-                    Column(modifier = Modifier.wrapContentWidth().padding(20.dp)
+                    Column(
+                        modifier = Modifier
+                            .wrapContentWidth()
+                            .padding(20.dp)
                     ) {
-                        Spacer(modifier = Modifier.padding(top = 40.dp))
+                        Spacer(modifier = Modifier.padding(top = 30.dp))
+                        TextView(text = "Enter your email")
                         InputTextField(
                             email,
                             onValueChange = { email = it },
@@ -150,7 +147,7 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
                             isEmptyMessage = isEmptyMessage
                         )
                         Spacer(modifier = Modifier.padding(top = 30.dp))
-                        NormalButton(value = "Send", onClickAction = onClickEmailCheck)
+                        NormalButton(value = "Continue", onClickAction = onClickEmailCheck)
                     }
                 } else {
                     // new password
@@ -159,7 +156,8 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
                             .wrapContentWidth()
                             .padding(20.dp)
                     ) {
-                        Spacer(modifier = Modifier.padding(top = 40.dp))
+                        Spacer(modifier = Modifier.padding(top = 30.dp))
+                        TextView(text = "Enter a new password below")
                         InputTextField(
                             password,
                             onValueChange = { password = it },
@@ -176,7 +174,7 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
                         )
                         Spacer(modifier = Modifier.padding(top = 30.dp))
                         NormalButton(
-                            value = "Confirm password",
+                            value = "Update password",
                             onClickAction = onClickEmailChange
                         )
                     }
@@ -213,4 +211,16 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
             )
         }
     }
+}
+
+@Composable
+fun TextView(text: String) {
+    Text(
+        text = text,
+        style = TextStyle(
+            fontWeight = FontWeight.Normal,
+            textAlign = TextAlign.Center
+        ),
+        color = Color.DarkGray
+    )
 }

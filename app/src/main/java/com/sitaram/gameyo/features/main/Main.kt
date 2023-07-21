@@ -39,6 +39,7 @@ fun GameyoAppNavHost(navController: NavHostController) {
         composable(User.Login.route){
             LoginViewScreen(navController)
         }
+
         // register screen
         composable(User.Register.route){
             SignUpViewScreen(navController)

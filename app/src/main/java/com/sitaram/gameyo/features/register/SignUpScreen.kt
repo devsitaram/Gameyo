@@ -1,6 +1,5 @@
 package com.sitaram.gameyo.features.register
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +10,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -88,15 +93,24 @@ fun SignUpViewScreen(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize() // size
             .background(Color.White) // background
-            .padding(30.dp) // padding
+            .padding(10.dp) // padding
     ) {
         // child layout file
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 30.dp),
-            horizontalAlignment = Alignment.CenterHorizontally // gravity center
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(Modifier.fillMaxWidth()) {
+                IconButton(
+                    onClick = {
+                        navController.navigateUp()
+                    },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowLeft,
+                        contentDescription = "Back",
+                        modifier = Modifier.size(40.dp),
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.padding(top = 20.dp))
             NormalTextComponent(
                 text = stringResource(id = R.string.hey),
                 color = colorResource(id = R.color.softBlack)
@@ -107,7 +121,8 @@ fun SignUpViewScreen(navController: NavHostController) {
                 color = colorResource(id = R.color.black)
             )
 
-            Column(modifier = Modifier.padding(top = 40.dp)) {
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+            Column(modifier = Modifier.padding(20.dp)) {
                 // email
                 InputTextField(
                     email,
@@ -172,16 +187,16 @@ fun SignUpViewScreen(navController: NavHostController) {
 fun RegisterButton(value: String, isEnabled: Boolean, onClickAction: () -> Unit) {
     Button(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-        contentPadding = PaddingValues(15.dp),
+            .fillMaxWidth(),
         enabled = isEnabled,
         onClick = onClickAction,
     ) {
         Text(
+            fontSize = 15.sp,
             text = value,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(5.dp),
+            color = Color.White
         )
     }
 }

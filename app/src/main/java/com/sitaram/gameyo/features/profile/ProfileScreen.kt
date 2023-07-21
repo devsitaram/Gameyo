@@ -111,7 +111,7 @@ fun InputTextField() {
             Icon(
                 painter = painterResource(id = R.drawable.ic_person),
                 contentDescription = null
-            ) // icon
+            )
         }
     )
 }
