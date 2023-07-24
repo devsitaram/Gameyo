@@ -33,25 +33,19 @@ import com.sitaram.gameyo.features.setting.SettingViewScreen
 
 @Composable
 fun GameyoAppNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = User.Login.route){
+    NavHost(navController = navController, startDestination = User.Login.route) {
 
         // login screen
-        composable(User.Login.route){
-            LoginViewScreen(navController)
-        }
+        composable(User.Login.route) { LoginViewScreen(navController) }
 
         // register screen
-        composable(User.Register.route){
-            SignUpViewScreen(navController)
-        }
+        composable(User.Register.route) { SignUpViewScreen() }
+
         // password forgot screen
-        composable(User.ForgotPassword.route){
-            ForgotPasswordViewScreen(navController)
-        }
+        composable(User.ForgotPassword.route) { ForgotPasswordViewScreen(navController) }
+
         // main screen
-        composable(User.Main.route){
-            ViewOfMainPage()
-        }
+        composable(User.Main.route) { ViewOfMainPage() }
     }
 }
 
@@ -66,7 +60,7 @@ fun ViewOfMainPage() {
         ScreenItem.Game,
         ScreenItem.Setting
     )
-    Scaffold(
+    Scaffold (
         bottomBar = {
             BottomNavigation {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -113,8 +107,12 @@ fun ViewOfMainPage() {
                 }
             }
         }
-    ) {innerPadding ->
-        NavHost(navController, startDestination = ScreenItem.Home.route, Modifier.padding(innerPadding)) {
+    ) { innerPadding ->
+        NavHost(
+            navController,
+            startDestination = ScreenItem.Home.route,
+            Modifier.padding(innerPadding)
+        ) {
             composable(ScreenItem.Home.route) { HomeViewScreen() }
             composable(ScreenItem.Profile.route) { ProfileViewScreen() }
             composable(ScreenItem.Message.route) { MessageViewScreen() }

@@ -47,7 +47,7 @@ fun NormalTextComponent(text: String, color: Color) {
             .padding(horizontal = 5.dp),  // Specify the desired padding value
         style = TextStyle(
             fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
+            fontWeight = FontWeight.SemiBold,
             fontStyle = FontStyle.Normal
         ),
         textAlign = TextAlign.Center,

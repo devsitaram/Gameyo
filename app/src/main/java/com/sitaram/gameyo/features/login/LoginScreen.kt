@@ -235,8 +235,7 @@ fun RegisterTextComponent(value: String, navController: NavController) {
     ClickableText(
         text = AnnotatedString(value),
         modifier = Modifier
-            .wrapContentHeight()
-            .padding(horizontal = 5.dp),
+            .wrapContentHeight(),
         style = TextStyle(
             fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold,

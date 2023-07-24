@@ -39,9 +39,11 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.main.User
 import com.sitaram.gameyo.features.util.HeadingTextComponent
@@ -50,9 +52,11 @@ import com.sitaram.gameyo.features.util.NormalTextComponent
 import com.sitaram.gameyo.features.util.PasswordTextField
 
 // Main/Parent UI design for Sign Up Screen
+@Preview // navController: NavHostController
 @Composable
-fun SignUpViewScreen(navController: NavHostController) {
+fun SignUpViewScreen() {
 
+    val navController = rememberNavController()
     val context = LocalContext.current
     var email by remember {
         mutableStateOf("")
@@ -112,7 +116,7 @@ fun SignUpViewScreen(navController: NavHostController) {
             }
             Spacer(modifier = Modifier.padding(top = 20.dp))
             NormalTextComponent(
-                text = stringResource(id = R.string.hey),
+                text = "Sing Up",
                 color = colorResource(id = R.color.softBlack)
             )
 
@@ -160,6 +164,7 @@ fun SignUpViewScreen(navController: NavHostController) {
                     isEnabled = isEmpty,
                     onClickAction = onClickAction,
                 )
+                NormalTextComponent(text = "By registering, you confirm that your accept our team of Use and Privacy policy.", color = colorResource(id = R.color.softBlack))
             }
             Spacer(modifier = Modifier.height(70.dp))
             Divider(modifier = Modifier.fillMaxWidth()) // using the divider
@@ -171,11 +176,11 @@ fun SignUpViewScreen(navController: NavHostController) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 NormalTextComponent(
-                    text = stringResource(id = R.string.login_your),
+                    text = stringResource(id = R.string.already_account),
                     color = colorResource(id = R.color.softBlack)
                 )
                 LoginTextComponent(
-                    text = stringResource(id = R.string.account),
+                    text = stringResource(id = R.string.sign_in),
                     navController = navController
                 )
             }
@@ -185,18 +190,32 @@ fun SignUpViewScreen(navController: NavHostController) {
 
 @Composable
 fun RegisterButton(value: String, isEnabled: Boolean, onClickAction: () -> Unit) {
-    Button(
-        modifier = Modifier
-            .fillMaxWidth(),
-        enabled = isEnabled,
+//    Button(
+//        modifier = Modifier
+//            .fillMaxWidth(),
+//        enabled = isEnabled,
+//        onClick = onClickAction,
+//    ) {
+//        Text(
+//            fontSize = 15.sp,
+//            text = value,
+//            fontWeight = FontWeight.SemiBold,
+//            modifier = Modifier.padding(5.dp),
+//            color = Color.White
+//        )
+//    }
+    androidx.compose.material.Button(
         onClick = onClickAction,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        colors = androidx.compose.material.ButtonDefaults.buttonColors(backgroundColor = Color.Blue) // Change the button color here
     ) {
-        Text(
-            fontSize = 15.sp,
+        androidx.compose.material.Text(
+            fontSize = 20.sp,
             text = value,
+            color = Color.White,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(5.dp),
-            color = Color.White
         )
     }
 }
@@ -207,11 +226,11 @@ fun LoginTextComponent(text: String, navController: NavHostController) {
     ClickableText(
         text = AnnotatedString(text),
         modifier = Modifier
-            .wrapContentHeight()
-            .padding(horizontal = 5.dp),
+            .wrapContentHeight(),
         style = TextStyle(
+            color = Color.Blue,
             fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
+            fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
         ),
 
