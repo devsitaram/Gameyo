@@ -22,7 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.sitaram.composeapp.features.game.GameScreen
+import com.sitaram.gameyo.features.game.GameScreen
 import com.sitaram.gameyo.features.forgotpassword.ForgotPasswordViewScreen
 import com.sitaram.gameyo.features.home.HomeViewScreen
 import com.sitaram.gameyo.features.login.LoginViewScreen
@@ -33,19 +33,20 @@ import com.sitaram.gameyo.features.setting.SettingViewScreen
 
 @Composable
 fun GameyoAppNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = User.Login.route) {
+    NavHost(navController = navController, startDestination = User.Main.route) {
 
         // login screen
         composable(User.Login.route) { LoginViewScreen(navController) }
 
         // register screen
-        composable(User.Register.route) { SignUpViewScreen() }
+        composable(User.Register.route) { SignUpViewScreen(navController) }
 
         // password forgot screen
         composable(User.ForgotPassword.route) { ForgotPasswordViewScreen(navController) }
 
         // main screen
         composable(User.Main.route) { ViewOfMainPage() }
+
     }
 }
 

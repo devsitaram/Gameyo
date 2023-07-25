@@ -1,30 +1,40 @@
-package com.sitaram.composeapp.features.game
+package com.sitaram.gameyo.features.game
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
+import androidx.compose.material.IconButton
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Text
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
-import com.sitaram.gameyo.features.game.GameViewModel
+import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.game.pojo.GameItems
 
 
@@ -54,14 +64,6 @@ fun GameScreen() {
 @SuppressLint("ComposableNaming")
 @Composable
 fun getListOfGames(gameList: MutableState<ArrayList<GameItems>>, context: Context) {
-
-//    val onClickAction: (Context) -> Unit = { context ->
-//        val intent = Intent(Intent.ACTION_VIEW)
-//        intent.data = Uri.parse("https://www.youtube.com/**chanel**")
-//        intent.setPackage("com.google.android.youtube")
-//        context.startActivity(intent)
-//    }
-
     LazyColumn {
         items(gameList.value.size) {
             Column(
@@ -87,34 +89,98 @@ fun getListOfGames(gameList: MutableState<ArrayList<GameItems>>, context: Contex
                 Text(text = gameList.value[it].developer ?: "developer")
                 Text(text = gameList.value[it].platform ?: "platform")
 
-                Row(Modifier.fillMaxWidth()) {
+                Row(Modifier.fillMaxWidth().padding(top = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     // play store button
-                    Button(onClick = {
-                        val webIntent = Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/search?q=$title=apps"))
-                        context.startActivity(webIntent)
-
-//                        val intent = Intent(Intent.ACTION_VIEW)
-//                        intent.data = Uri.parse("https://www.playstore.com/$title")
-//                        intent.setPackage("com.google.android.playstore")
-//                        context.startActivity(intent)
-                    }) {
-                        Text(text = "Play Store")
-                    }
-
+                    GooglePlaySearchButton(title, context)
                     // you tube button
-                    Button(onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse("https://www.youtube.com/search?q=$title=games")
-                        intent.setPackage("com.google.android.youtube")
-                        context.startActivity(intent) }) {
-                        Text(text = "YouTube")
-                    }
+                    YouTubeSearchButton(title, context)
                 }
             }
-            Divider(modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp)) // divider
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp)
+            ) // divider
+        }
+    }
+}
+
+//@Preview
+@Composable
+fun GooglePlaySearchButton(title: String, context: Context) {
+    IconButton(
+        onClick = {
+            val webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/search?q=$title/apps")
+            )
+            context.startActivity(webIntent)
+        },
+        modifier = Modifier.background(color = Color.Black),
+    ) {
+        Row(modifier = Modifier.padding(start = 15.dp, end = 30.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.img_google_play), contentDescription = "Google Play",
+                modifier = Modifier.size(30.dp)
+                )
+            Column(Modifier.padding(5.dp)) {
+                Text(
+                    text = "GET IT ON",
+                    style = TextStyle(
+                        fontSize = 10.sp
+                    ),
+                    color = Color.White
+                )
+                Text(
+                    text = "Google Play",
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = Color.White
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun YouTubeSearchButton(title: String, context: Context) {
+    IconButton(
+        onClick = {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://www.youtube.com/search?q=$title/games")
+            intent.setPackage("com.google.android.youtube")
+            context.startActivity(intent)
+        },
+        modifier = Modifier.background(color = Color.Red),
+    ) {
+        Row(modifier = Modifier.padding(start = 10.dp, end = 30.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.img_youtube), contentDescription = "YouTube",
+                modifier = Modifier.size(40.dp).background(color = Color.Red)
+            )
+            Column(Modifier.padding(5.dp)) {
+                Text(
+                    text = "Find us on",
+                    style = TextStyle(
+                        fontSize = 10.sp
+                    ),
+                    color = Color.White
+                )
+                Text(
+                    text = "YouTube",
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = Color.White
+                )
+            }
         }
     }
 }

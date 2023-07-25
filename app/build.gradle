@@ -107,4 +107,7 @@ dependencies {
     // biometric
     implementation "androidx.biometric:biometric-ktx:1.2.0-alpha05"
 
+    // tab layout
+    implementation "com.google.accompanist:accompanist-pager:0.20.0"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.20.0"
 }

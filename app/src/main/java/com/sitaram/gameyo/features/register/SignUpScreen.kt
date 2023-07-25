@@ -3,7 +3,6 @@ package com.sitaram.gameyo.features.register
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,12 +15,10 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -45,6 +42,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.sitaram.gameyo.R
+import androidx.compose.material3.Text
+import androidx.compose.ui.text.style.TextAlign
 import com.sitaram.gameyo.features.main.User
 import com.sitaram.gameyo.features.util.HeadingTextComponent
 import com.sitaram.gameyo.features.util.InputTextField
@@ -52,11 +51,11 @@ import com.sitaram.gameyo.features.util.NormalTextComponent
 import com.sitaram.gameyo.features.util.PasswordTextField
 
 // Main/Parent UI design for Sign Up Screen
-@Preview // navController: NavHostController
+//@Preview // navController: NavHostController
 @Composable
-fun SignUpViewScreen() {
+fun SignUpViewScreen(navController: NavHostController) {
 
-    val navController = rememberNavController()
+//    val navController = rememberNavController()
     val context = LocalContext.current
     var email by remember {
         mutableStateOf("")
@@ -161,10 +160,9 @@ fun SignUpViewScreen() {
                 // button
                 RegisterButton(
                     value = stringResource(id = R.string.signup),
-                    isEnabled = isEmpty,
                     onClickAction = onClickAction,
                 )
-                NormalTextComponent(text = "By registering, you confirm that your accept our team of Use and Privacy policy.", color = colorResource(id = R.color.softBlack))
+                TextComponents(text = "By registering, you confirm that your accept our team of Use and Privacy policy.", color = colorResource(id = R.color.softBlack))
             }
             Spacer(modifier = Modifier.height(70.dp))
             Divider(modifier = Modifier.fillMaxWidth()) // using the divider
@@ -189,33 +187,33 @@ fun SignUpViewScreen() {
 }
 
 @Composable
-fun RegisterButton(value: String, isEnabled: Boolean, onClickAction: () -> Unit) {
+fun RegisterButton(value: String, onClickAction: () -> Unit) {
 //    Button(
-//        modifier = Modifier
-//            .fillMaxWidth(),
-//        enabled = isEnabled,
 //        onClick = onClickAction,
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(10.dp),
+//        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue) // Change the button color here
 //    ) {
 //        Text(
-//            fontSize = 15.sp,
+//            fontSize = 20.sp,
 //            text = value,
+//            color = Color.White,
 //            fontWeight = FontWeight.SemiBold,
-//            modifier = Modifier.padding(5.dp),
-//            color = Color.White
 //        )
 //    }
-    androidx.compose.material.Button(
+    Button(
         onClick = onClickAction,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
-        colors = androidx.compose.material.ButtonDefaults.buttonColors(backgroundColor = Color.Blue) // Change the button color here
+            .padding(5.dp),
     ) {
-        androidx.compose.material.Text(
-            fontSize = 20.sp,
+        Text(
+            fontSize = 15.sp,
             text = value,
-            color = Color.White,
             fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(5.dp),
+            color = Color.White
         )
     }
 }
@@ -233,9 +231,25 @@ fun LoginTextComponent(text: String, navController: NavHostController) {
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
         ),
-
         onClick = {
             navController.navigate(User.Login.route)
         },
+    )
+}
+
+@Composable
+fun TextComponents(text: String, color: Color) {
+    Text(
+                text = text,
+        modifier = Modifier
+            .wrapContentHeight()
+            .padding(horizontal = 5.dp),  // Specify the desired padding value
+        style = TextStyle(
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        ),
+        textAlign = TextAlign.Center,
+        color = color
     )
 }
