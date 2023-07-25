@@ -26,10 +26,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.navigation.compose.rememberNavController
+import com.sitaram.gameyo.features.game.Game
 import com.sitaram.gameyo.features.main.GameyoAppNavHost
 import com.sitaram.gameyo.ui.theme.GameyoTheme
 
 class MainActivity : ComponentActivity() {
+
+//    val getSharedPreferences = getSharedPreferences("selfPrefs", MODE_PRIVATE)
+//    val hasIntroSlider: Boolean = getSharedPreferences.getBoolean("has_view_slider", false)
 
     private var cancellationSignal: CancellationSignal? = null
     private var biometricPrompt: BiometricPrompt? = null
