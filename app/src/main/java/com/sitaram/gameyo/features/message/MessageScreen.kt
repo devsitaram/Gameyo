@@ -3,6 +3,7 @@ package com.sitaram.gameyo.features.message
 import android.widget.Toast
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,10 +42,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@Composable
+fun MessageViewScreen() {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.Gray),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "Message")
+    }
+}
 
 // recycler
 @Composable
-fun MessageViewScreen() {
+fun MessageViewScreens() {
 
     val context = LocalContext.current
     var number by remember { mutableStateOf(0) }

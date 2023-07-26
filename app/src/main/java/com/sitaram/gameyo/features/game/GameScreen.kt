@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
@@ -113,7 +114,7 @@ fun GetListOfGames(gameItemsList: MutableState<ArrayList<GameItems>>, context: C
                     Modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     // play store button
                     GooglePlaySearchButton(title, context)
@@ -216,7 +217,7 @@ fun GooglePlaySearchButton(title: String, context: Context) {
             )
             context.startActivity(webIntent)
         },
-        modifier = Modifier.background(color = Color.Black),
+        modifier = Modifier.background(color = Color.Black).wrapContentWidth(),
     ) {
         Row(
             modifier = Modifier.padding(start = 15.dp, end = 40.dp),
@@ -257,7 +258,7 @@ fun YouTubeSearchButton(title: String, context: Context) {
             intent.setPackage("com.google.android.youtube")
             context.startActivity(intent)
         },
-        modifier = Modifier.background(color = Color.Red),
+        modifier = Modifier.background(color = Color.Red).wrapContentWidth(),
     ) {
         Row(
             modifier = Modifier.padding(start = 10.dp, end = 40.dp),

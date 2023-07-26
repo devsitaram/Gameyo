@@ -5,7 +5,7 @@ import com.sitaram.gameyo.features.game.pojo.GameItems
 
 class Game(private val context: Context) {
 
-    suspend fun getGameFromApi(): ArrayList<GameItems> {
-        return GameRepository().getGameList(context)
-    }
+//    suspend fun getGameFromApi(): ArrayList<GameItems> {
+//        return GameRepository().getGameList(context)
+//    }
 }
