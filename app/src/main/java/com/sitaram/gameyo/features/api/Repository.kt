@@ -3,10 +3,8 @@ package com.sitaram.gameyo.features.api
 import com.sitaram.gameyo.features.game.pojo.GameItems
 import retrofit2.Call
 
-class Repository {
-
+class Repository(private val apiService: ApiServices?) {
     fun getGameList(): Call<List<GameItems>>? {
-        val apiService: ApiServices? = ApiCallInstance.getAPIServiceInstance()
         return apiService?.getGames()
     }
 }

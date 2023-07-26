@@ -47,7 +47,8 @@ fun MessageViewScreen() {
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.Gray),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Message")
     }

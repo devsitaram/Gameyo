@@ -117,7 +117,7 @@ fun ViewOfMainPage() {
             composable(ScreenItem.Home.route) { HomeViewScreen() }
             composable(ScreenItem.Profile.route) { ProfileViewScreen() }
             composable(ScreenItem.Message.route) { MessageViewScreen() }
-            composable(ScreenItem.Game.route) { GameScreen() }
+            composable(ScreenItem.Game.route) { GameScreen(navController) }
             composable(ScreenItem.Setting.route) { SettingViewScreen() }
         }
     }

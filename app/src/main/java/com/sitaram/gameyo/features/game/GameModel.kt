@@ -8,10 +8,11 @@ import retrofit2.Call
 
 class GameModel {
 
-    private val repository = Repository()
     // call the api
     fun getGame(): Call<List<GameItems>>? {
-        return repository.getGameList()
+        val apiService: ApiServices? = ApiCallInstance.getAPIServiceInstance()
+        return Repository(apiService).getGameList()
+
 //        val apiService: ApiServices? = ApiCallInstance.getAPIServiceInstance()
 //        return apiService?.getGames()
     }

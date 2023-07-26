@@ -36,6 +36,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.sitaram.gameyo.R
 import com.sitaram.gameyo.features.game.pojo.GameItems
@@ -45,7 +46,7 @@ val gameViewModel = GameViewModel()
 
 @SuppressLint("MutableCollectionMutableState")
 @Composable
-fun GameScreen() {
+fun GameScreen(navController: NavHostController) {
     val context = LocalContext.current
     val gameItemsList = remember { mutableStateOf(ArrayList<GameItems>()) }
     Surface(Modifier.fillMaxWidth()) {
@@ -55,9 +56,9 @@ fun GameScreen() {
                 gameItemsList.value = it as ArrayList<GameItems>
             }
         }
-
         // call the composable function
         GetListOfGames(gameItemsList, context)
+
     }
 //    LaunchedEffect(true) {
 //        // Call the API to get the game data
@@ -217,7 +218,9 @@ fun GooglePlaySearchButton(title: String, context: Context) {
             )
             context.startActivity(webIntent)
         },
-        modifier = Modifier.background(color = Color.Black).wrapContentWidth(),
+        modifier = Modifier
+            .background(color = Color.Black)
+            .wrapContentWidth(),
     ) {
         Row(
             modifier = Modifier.padding(start = 15.dp, end = 40.dp),
@@ -258,7 +261,9 @@ fun YouTubeSearchButton(title: String, context: Context) {
             intent.setPackage("com.google.android.youtube")
             context.startActivity(intent)
         },
-        modifier = Modifier.background(color = Color.Red).wrapContentWidth(),
+        modifier = Modifier
+            .background(color = Color.Red)
+            .wrapContentWidth(),
     ) {
         Row(
             modifier = Modifier.padding(start = 10.dp, end = 40.dp),
